@@ -186,4 +186,7 @@ if __name__ == "__main__":
     assert intermittent_route.cv_mode == "intermittent", f"Expected intermittent, got {intermittent_route.cv_mode}"
     assert high_cv_route.cv_mode == "high_cv", f"Expected high_cv, got {high_cv_route.cv_mode}"
 
-    print("All routing assertions passed ✓")
+    try:
+        print("All routing assertions passed ✓")
+    except UnicodeEncodeError:
+        print("All routing assertions passed")
