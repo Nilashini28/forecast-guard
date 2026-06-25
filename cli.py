@@ -2,6 +2,7 @@
 ForecastGuard Command Line Interface.
 """
 
+import sys
 import json
 from pathlib import Path
 import yaml
@@ -16,6 +17,15 @@ from profiler.router import route
 
 app = typer.Typer(name="forecastguard")
 console = Console()
+
+
+def _get_checkmark() -> str:
+    """Returns a green checkmark if supported by stdout, otherwise 'v'."""
+    try:
+        "✔".encode(sys.stdout.encoding or "utf-8")
+        return "✔"
+    except Exception:
+        return "v"
 
 
 @app.command()
@@ -134,9 +144,17 @@ def profile(
     try:
         with open(output_path, "w") as f:
             json.dump(results, f, indent=2)
-        console.print(f"\n[green]✔[/green] Results saved to [bold]{output_path}[/bold]")
+        console.print(f"\n[green]{_get_checkmark()}[/green] Results saved to [bold]{output_path}[/bold]")
     except Exception as e:
         console.print(f"[red]Error:[/red] Failed to write output JSON to {output_path}: {e}")
+
+
+@app.command()
+def version() -> None:
+    """
+    Prints the version of ForecastGuard.
+    """
+    console.print("ForecastGuard Version 1.0.0")
 
 
 if __name__ == "__main__":

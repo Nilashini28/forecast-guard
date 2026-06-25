@@ -2,12 +2,22 @@
 M5 dataset loader and synthetic data generator.
 """
 
+import sys
 from pathlib import Path
 import numpy as np
 import pandas as pd
 from rich.console import Console
 
 console = Console()
+
+
+def _get_checkmark() -> str:
+    """Returns a green checkmark if supported by stdout, otherwise 'v'."""
+    try:
+        "✔".encode(sys.stdout.encoding or "utf-8")
+        return "✔"
+    except Exception:
+        return "v"
 
 
 def load_m5(path: str) -> dict[str, pd.Series]:
@@ -58,7 +68,7 @@ def load_m5(path: str) -> dict[str, pd.Series]:
         skus[str(col)] = df[str(col)].astype(float)
 
     # Print success message with rich
-    console.print(f"[green]✔[/green] Loaded {len(skus)} SKUs from '{path_obj.name}'")
+    console.print(f"[green]{_get_checkmark()}[/green] Loaded {len(skus)} SKUs from '{path_obj.name}'")
 
     return skus
 
