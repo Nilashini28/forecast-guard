@@ -1,0 +1,7 @@
+dataset_path: data/sample_m5.csv
+primary_metric: mase
+drift_sensitivity: 0.002
+monitoring_window: 52
+intermittency_threshold: 0.3
+high_cv_threshold: 1.0
+output_format: cli

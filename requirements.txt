@@ -1,0 +1,8 @@
+pandas
+numpy
+statsmodels
+river
+scikit-learn
+pyyaml
+rich
+typer
